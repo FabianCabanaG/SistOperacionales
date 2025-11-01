@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex entrega1"] 1762027264.92922 "entrega1.aux" "entrega1.bbl" "entrega1" 1762027270.91496 0
+["bibtex entrega1"] 1762028062.41251 "entrega1.aux" "entrega1.bbl" "entrega1" 1762028068.39128 0
   "./referencias.bib" 1761839048.87705 1729 2a664ef27505cbe6e6fd8bd9bc932fe2 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/bibtex/bst/apacite/apacite.bst" 1374952728 146156 ecb25f7102744fefab6424686f49047c ""
-  "entrega1.aux" 1762027268.94647 5409 91686a85aec9697e033edff12b2e894a "pdflatex"
+  "entrega1.aux" 1762028066.15075 5409 91686a85aec9697e033edff12b2e894a "pdflatex"
   (generated)
   "entrega1.bbl"
   "entrega1.blg"
   (rewritten before read)
-["pdflatex"] 1762027265.88718 "c:/Users/Wilme/SistOperacionales/Entregas/entrega1.tex" "entrega1.pdf" "entrega1" 1762027270.91655 0
+["pdflatex"] 1762028063.12558 "c:/Users/Wilme/SistOperacionales/Entregas/entrega1.tex" "entrega1.pdf" "entrega1" 1762028068.39312 0
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1762016559.62963 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1761838190.56118 28976 77c6c569c2db4cb378b0be3fc79d2bac ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1761323448.69424 31952 2c7fd51e71292b6596313308d052a918 ""
@@ -176,7 +176,7 @@
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1749468414 7243 a2c17f18e2c9b702b84fad03d5f9c78b ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
-  "c:/Users/Wilme/SistOperacionales/Entregas/entrega1.tex" 1762027258.19988 13001 c8883356ee21f11cd7f5613f49b14b7c ""
+  "c:/Users/Wilme/SistOperacionales/Entregas/entrega1.tex" 1762028055.83756 13001 c8883356ee21f11cd7f5613f49b14b7c ""
   "capturas//docker/containers.png" 1762027169.37376 197144 6c564330ff7bfc2758b374603c5a1798 ""
   "capturas/Docker/containers.png" 1762027169.37376 197144 6c564330ff7bfc2758b374603c5a1798 ""
   "capturas/ping-ubunso1-ubunso2.png" 1761835288.29722 240835 5e82c1bf24a18c7e7310ae81db9a7cb7 ""
@@ -186,10 +186,10 @@
   "capturas/ubunso2-ip-a.png" 1761835286.72973 113171 b113daa18aaa5929a58edc505bc33383 ""
   "capturas/ubunso3-ip-a.png" 1761835281.3031 113391 d85fffd46b9c64d71847944465ce1c21 ""
   "capturas/vms-tres-maquinas.png" 1761342412.5824 107548 197ee53d48799d08d043c87aa30bf039 ""
-  "entrega1.aux" 1762027268.94647 5409 91686a85aec9697e033edff12b2e894a "pdflatex"
-  "entrega1.bbl" 1762027265.60554 3819 7012f87b46d2d98f6b21ad382771acad "bibtex entrega1"
-  "entrega1.out" 1762027268.95099 2235 901a1ecdd66199f1784f3aa0c080eadc "pdflatex"
-  "entrega1.toc" 1762027268.95563 1162 4719c128ba08789ee7f24218f07e3117 "pdflatex"
+  "entrega1.aux" 1762028066.15075 5409 91686a85aec9697e033edff12b2e894a "pdflatex"
+  "entrega1.bbl" 1762028062.88666 3819 7012f87b46d2d98f6b21ad382771acad "bibtex entrega1"
+  "entrega1.out" 1762028066.15788 2235 901a1ecdd66199f1784f3aa0c080eadc "pdflatex"
+  "entrega1.toc" 1762028066.16106 1162 4719c128ba08789ee7f24218f07e3117 "pdflatex"
   (generated)
   "entrega1.aux"
   "entrega1.log"
