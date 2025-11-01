@@ -83,6 +83,20 @@ Como señalan autores como \citeA{stallings2005}, la virtualización es un pilar
 \subsection{Preparación de los recursos}
 Se utilizaron imágenes ISO de \textbf{Ubuntu Server}, en particular la versión \textbf{22.04.5 LTS} para la máquina \textbf{UbunSO2}. El hipervisor empleado fue \textbf{Oracle VirtualBox} \cite{oracle2024}.
 
+El paso a paso del desarrollo fue:
+
+\begin{enumerate}
+    \item \textbf{Creación de las máquinas virtuales:} se generaron tres instancias de Ubuntu Serve con 4 GB de memoria RAM y un disco virtual de 25 GB a cada una.
+    
+    \item \textbf{Configuración de red:} se configuró el modo de red en \emph{Adaptador puente} para permitir la comunicación directa entre las máquinas y el router del entorno físico. A cada máquina se le asignó una dirección IP estática dentro del mismo segmento de red (192.168.2.x).
+    
+    \item \textbf{Instalación del sistema operativo:} durante la instalación de Ubuntu Server, se definieron los nombres de host, usuarios administrativos y la configuración de red correspondiente a cada nodo.
+    
+    \item \textbf{Verificación de conectividad:} una vez completada la instalación, se comprobó la comunicación entre las máquinas mediante el comando \texttt{ping}, validando la conectividad bidireccional en todos los casos.
+    
+    \item \textbf{Documentación del entorno:} se capturaron las evidencias de las configuraciones de red, las direcciones IP asignadas y las pruebas de conectividad, acompañadas de diagramas que representan la topología empleada.
+\end{enumerate}
+
 \subsection{Creación de las máquinas virtuales}
 \begin{figure}[H]
     \centering
@@ -109,17 +123,20 @@ UbunSO3 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7
 \subsection{Evidencia de configuración de red}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{1\textwidth}
         \includegraphics[width=\textwidth]{capturas/ubunso1-ip-a.png}
         \caption{UbunSO1 – IP 192.168.2.9}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{1\textwidth}
         \includegraphics[width=\textwidth]{capturas/ubunso2-ip-a.png}
         \caption{UbunSO2 – IP 192.168.2.8}
     \end{subfigure}
-    \par\medskip
-    \begin{subfigure}[b]{0.45\textwidth}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{1\textwidth}
         \includegraphics[width=\textwidth]{capturas/ubunso3-ip-a.png}
         \caption{UbunSO3 – IP 192.168.2.7}
     \end{subfigure}
@@ -129,17 +146,20 @@ UbunSO3 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7
 \subsection{Evidencia de conectividad entre máquinas}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{1\textwidth}
         \includegraphics[width=\textwidth]{capturas/ping-ubunso1-ubunso2.png}
         \caption{UbunSO1 → UbunSO2}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{1\textwidth}
         \includegraphics[width=\textwidth]{capturas/ping-ubunso2-ubunso3.png}
         \caption{UbunSO2 → UbunSO3}
     \end{subfigure}
     \par\medskip
-    \begin{subfigure}[b]{0.45\textwidth}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{subfigure}[b]{1\textwidth}
         \includegraphics[width=\textwidth]{capturas/ping-ubunso3-ubunso1.png}
         \caption{UbunSO3 → UbunSO1}
     \end{subfigure}
@@ -191,6 +211,18 @@ UbunSO3 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7
 
 \end{tikzpicture}
 \caption{Esquema de red en modo NAT (referencia).}
+\end{figure}
+
+\FloatBarrier
+
+\section{Implementación con Docker}
+Generamos además una implementación aprovechando la potencia de Docker para generar virtualización a partir de sus contenedores y teniendo en cuenta la importancia que tiene esta herramienta en el mundo profesional. Se generan contenedores y red via bash y podemos verlos ejecutando Ubuntu 22.04:
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{capturas/Docker/containers.png}
+    \caption{Captura del software OrbStack}
+    \label{fig:placeholder}
 \end{figure}
 
 \FloatBarrier
