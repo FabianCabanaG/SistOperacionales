@@ -1,0 +1,28 @@
+# Archivos de backup
+*.backup
+*.bak
+*.tar
+*.tar.gz
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de Docker (si se guardan localmente)
+*.tar.docker
+docker-backup/
