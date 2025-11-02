@@ -5,7 +5,7 @@
 \contentsline {subsection}{\numberline {3.1}Preparación de los recursos}{2}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Creación de las máquinas virtuales}{3}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Configuración de red}{3}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Evidencia de configuración de red}{4}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.4}Evidencia de configuración de red}{3}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Evidencia de conectividad entre máquinas}{6}{subsection.3.5}%
 \contentsline {subsection}{\numberline {3.6}Diagramas de red}{8}{subsection.3.6}%
 \contentsline {section}{\numberline {4}Implementación con Docker}{8}{section.4}%
