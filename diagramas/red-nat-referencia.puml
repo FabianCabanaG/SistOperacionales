@@ -1,0 +1,29 @@
+@startuml
+nwdiag {
+  network internet {
+      address = "Internet"
+      router [address = "192.168.2.1", description = "Router/Gateway"];
+  }
+  
+  network virtualbox_nat {
+      address = "10.0.2.0/24"
+      
+      router;
+      nat_gateway [address = "10.0.2.1", description = "VirtualBox NAT Gateway"];
+      
+      // Máquinas virtuales en modo NAT
+      UbunSO1 [address = "10.0.2.15", description = "Ubuntu Server 22.04 LTS\n2048 MB RAM"];
+      UbunSO2 [address = "10.0.2.16", description = "Ubuntu Server 22.04.5 LTS\n2048 MB RAM"];
+      UbunSO3 [address = "10.0.2.17", description = "Ubuntu Server 22.04 LTS\n2048 MB RAM"];
+  }
+  
+  group {
+    color = "#FFE5B4";
+    description = "VirtualBox - Modo NAT (Referencia)";
+    nat_gateway;
+    UbunSO1;
+    UbunSO2;
+    UbunSO3;
+  }
+}
+@enduml
