@@ -77,11 +77,26 @@ En el Marco teórico, se define el respaldo conceptual y antecedentes que respal
 En el Contenido, se detallan paso a paso la preparación de los recursos, creación de máquinas virtuales, configuración de red y todas las evidencias con capturas de pantalla. Finalmente, se plantea un alternativa de creación de máquinas virtuales por Docker, solo como un plus para facilitar la articulación de metodologías en un grupo de trabajo para esta y posteriores entregas
 
 \section{Marco teórico}
-\begin{itemize}
-    \item La virtualización permite optimizar recursos y aislar entornos de ejecución, lo que facilita la administración de sistemas \cite{wolf2010}. Para este caso en particular, el montaje de tres sistemas operativos desde distintas máquinas, se efectúa para hacer pruebas de conectividad.
-    \item Existen diferencias clave entre NAT y adaptador puente en VirtualBox, que determinan el alcance de la conectividad de las máquinas virtuales \cite{oracle2024}.
-    \item El direccionamiento IP es esencial para garantizar la comunicación entre dispositivos en una red local \cite{canonical2024}.
-\end{itemize}
+
+La virtualización se ha consolidado como una tecnología fundamental en la administración de sistemas modernos. Según \citeA{wolf2010}, la virtualización permite optimizar recursos y aislar entornos de ejecución, lo que facilita la administración de sistemas. Esta capacidad de crear múltiples sistemas operativos independientes sobre un único hardware físico ha revolucionado la forma en que se gestionan los recursos computacionales en entornos empresariales y académicos.
+
+\citeA{stallings2005} explica que la virtualización no es un concepto nuevo, pero su implementación moderna mediante hipervisores ha permitido alcanzar niveles de eficiencia sin precedentes. En el contexto de este laboratorio, el montaje de tres sistemas operativos desde distintas máquinas se efectúa para hacer pruebas de conectividad y simular escenarios de red realistas sin necesidad de hardware adicional.
+
+En cuanto a las configuraciones de red en entornos virtualizados, existen diferencias clave entre los modos NAT (Network Address Translation) y adaptador puente en VirtualBox. \citeA{oracle2024} documentan que estas diferencias determinan el alcance de la conectividad de las máquinas virtuales. Mientras que el modo NAT proporciona aislamiento y permite que las VMs accedan a redes externas a través del host, el modo adaptador puente integra las VMs directamente en la red física, asignándoles direcciones IP propias y permitiendo comunicación directa con otros dispositivos de la red local.
+
+El direccionamiento IP es esencial para garantizar la comunicación entre dispositivos en una red local. Como señala \citeA{canonical2024} en la documentación oficial de Ubuntu Server, la configuración correcta de interfaces de red mediante herramientas como Netplan es fundamental para establecer conectividad estable y predecible. La asignación de direcciones IP estáticas, en contraposición al uso de DHCP, proporciona mayor control y facilita la configuración de servicios que requieren direcciones fijas, como será el caso del balanceador de carga Nginx en fases posteriores.
+
+\subsection{NGiNX como balanceador de carga}
+
+Nginx (pronunciado "engine-x") es un servidor web de alto rendimiento y proxy inverso que se ha convertido en una herramienta estándar para la distribución de carga en arquitecturas de servidores modernos. Su arquitectura basada en eventos le permite manejar miles de conexiones simultáneas con un consumo mínimo de recursos, lo que lo hace ideal para entornos virtualizados.
+
+En el contexto de este laboratorio, la configuración de red en modo adaptador puente entre las tres máquinas virtuales sienta las bases para implementar Nginx como balanceador de carga en entregas futuras. El balanceo de carga permite distribuir el tráfico de red entre múltiples servidores, mejorando la disponibilidad, escalabilidad y rendimiento de las aplicaciones. Nginx puede configurarse para distribuir peticiones HTTP/HTTPS entre los servidores backend utilizando diferentes algoritmos (round-robin, least connections, ip-hash), permitiendo que si uno de los servidores falla, el tráfico se redirija automáticamente a los servidores restantes.
+
+La instalación de Nginx en Ubuntu Server es sencilla mediante el gestor de paquetes APT, y su configuración se realiza principalmente a través de archivos en el directorio \texttt{/etc/nginx/}. Para el balanceo de carga, se define un grupo de servidores backend (upstream) con las direcciones IP de las máquinas virtuales configuradas en este laboratorio, estableciendo así la comunicación entre los tres sistemas mediante las pruebas de conectividad previamente validadas con el comando \texttt{ping}.
+
+\citeA{silberschatz2008} destacan que la concurrencia y la gestión de procesos son elementos centrales en el diseño de sistemas operativos, aspectos que se vuelven particularmente relevantes en entornos virtualizados donde múltiples sistemas operativos comparten recursos físicos. La correcta asignación de recursos (CPU, RAM, almacenamiento) entre las máquinas virtuales es crucial para garantizar el rendimiento óptimo de cada sistema.
+
+Finalmente, \citeA{arena2002} y \citeA{arena2005} destacan la relevancia de Linux como sistema operativo robusto para servidores y entornos académicos, subrayando su estabilidad, seguridad y flexibilidad para configuraciones de red avanzadas. Ubuntu Server, la distribución utilizada en este laboratorio, hereda estas características y ofrece soporte a largo plazo (LTS) que garantiza actualizaciones de seguridad y estabilidad durante varios años.
 
 \section{Contenido}
 

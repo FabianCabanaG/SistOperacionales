@@ -1,14 +1,15 @@
 \babel@toc {spanish}{}\relax 
 \contentsline {section}{\numberline {1}Introducción}{2}{section.1}%
 \contentsline {section}{\numberline {2}Marco teórico}{2}{section.2}%
-\contentsline {section}{\numberline {3}Contenido}{2}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Preparación de los recursos}{2}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Creación de las máquinas virtuales}{3}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Configuración de red}{3}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Evidencia de configuración de red}{3}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Evidencia de conectividad entre máquinas}{6}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Diagramas de red}{8}{subsection.3.6}%
-\contentsline {section}{\numberline {4}Implementación con Docker}{8}{section.4}%
-\contentsline {section}{\numberline {5}Conclusiones}{9}{section.5}%
-\contentsline {section}{\numberline {6}Referencias}{9}{section.6}%
-\contentsline {section}{Referencias}{9}{section*.9}%
+\contentsline {subsection}{\numberline {2.1}NGiNX como balanceador de carga}{3}{subsection.2.1}%
+\contentsline {section}{\numberline {3}Contenido}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Preparación de los recursos}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Creación de las máquinas virtuales}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Configuración de red}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Evidencia de configuración de red}{5}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Evidencia de conectividad entre máquinas}{7}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Diagramas de red}{9}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Implementación con Docker}{9}{section.4}%
+\contentsline {section}{\numberline {5}Conclusiones}{10}{section.5}%
+\contentsline {section}{\numberline {6}Referencias}{10}{section.6}%
+\contentsline {section}{Referencias}{10}{section*.9}%

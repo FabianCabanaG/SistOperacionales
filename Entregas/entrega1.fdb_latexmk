@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex entrega1"] 1762094816.07891 "entrega1.aux" "entrega1.bbl" "entrega1" 1762094999.75344 0
+["bibtex entrega1"] 1762095327.04524 "entrega1.aux" "entrega1.bbl" "entrega1" 1762095331.50813 0
   "./referencias.bib" 1761839048.87705 1729 2a664ef27505cbe6e6fd8bd9bc932fe2 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/bibtex/bst/apacite/apacite.bst" 1374952728 146156 ecb25f7102744fefab6424686f49047c ""
-  "entrega1.aux" 1762094998.34312 5042 330f8d48100cbfc61dcedd1c2a0a71de "pdflatex"
+  "entrega1.aux" 1762095329.98376 5280 54287600f5feb451769bdc4dd959db54 "pdflatex"
   (generated)
   "entrega1.bbl"
   "entrega1.blg"
   (rewritten before read)
-["pdflatex"] 1762094995.98308 "c:/Users/Wilme/SistOperacionales/Entregas/entrega1.tex" "entrega1.pdf" "entrega1" 1762094999.75478 0
+["pdflatex"] 1762095327.64515 "c:/Users/Wilme/SistOperacionales/Entregas/entrega1.tex" "entrega1.pdf" "entrega1" 1762095331.5113 0
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1762016559.62963 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1761838190.56118 28976 77c6c569c2db4cb378b0be3fc79d2bac ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1761323448.69424 31952 2c7fd51e71292b6596313308d052a918 ""
@@ -15,6 +15,7 @@
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1728.pk" 1761323457.09761 49100 c37c2f8be248325303fe24eae611fda2 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx2488.pk" 1761323452.96463 72288 96ed1d721e68d86bd6fe4972105f8e98 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecit1200.pk" 1761838186.09229 33276 d9db318ee016f91b5fdc08115a57053b ""
+  "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm0800.pk" 1762095325.26325 19080 c445c1f019228af66fba81abfaf973bd ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1095.pk" 1761341516.53316 26228 5f4febdb1e1796bdf5fd8f01341ec719 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1200.pk" 1761323446.61873 28440 824c19529c10197c93bade07bc75a99b ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm2074.pk" 1761323450.7577 53736 9146088f7f67d5ba063f71678c5df56a ""
@@ -29,6 +30,7 @@
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecbx1728.tfm" 993061962 3204 d35cb76836b6cb4ed404dd64a550530d ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecbx2488.tfm" 993061966 3192 b0a07ba84fb3fb36d088c4f796e254b9 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecit1200.tfm" 993062052 1356 bbf13db8015d79fca29625ece36b4020 ""
+  "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm0800.tfm" 993062118 3152 11ecf5aad6aacf00ff18f394ab23a8b5 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm1095.tfm" 993062124 3172 eb6efaa83c6c52473a1c403f376eab0f ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm1200.tfm" 993062126 3152 4850ff0163852b7fab34bd55e1197f28 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm1440.tfm" 993062128 3168 3bd7b08ba4330af81521911744311212 ""
@@ -176,7 +178,7 @@
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1749468414 7243 a2c17f18e2c9b702b84fad03d5f9c78b ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
-  "c:/Users/Wilme/SistOperacionales/Entregas/entrega1.tex" 1762094994.92185 13282 d090dfb1bdf1963887d79385db75db28 ""
+  "c:/Users/Wilme/SistOperacionales/Entregas/entrega1.tex" 1762095318.42731 17253 ba444598c4fafa42c3ec5befc8aaa586 ""
   "capturas/Docker/containers.png" 1762027169.37376 197144 6c564330ff7bfc2758b374603c5a1798 ""
   "capturas/ping-ubunso1-ubunso2.png" 1761835288.29722 240835 5e82c1bf24a18c7e7310ae81db9a7cb7 ""
   "capturas/ping-ubunso2-ubunso3.png" 1761835284.9433 222211 f48e875b6d5b2b248d41fecbd367e285 ""
@@ -185,10 +187,10 @@
   "capturas/ubunso2-ip-a.png" 1761835286.72973 113171 b113daa18aaa5929a58edc505bc33383 ""
   "capturas/ubunso3-ip-a.png" 1761835281.3031 113391 d85fffd46b9c64d71847944465ce1c21 ""
   "capturas/vms-tres-maquinas.png" 1761342412.5824 107548 197ee53d48799d08d043c87aa30bf039 ""
-  "entrega1.aux" 1762094998.34312 5042 330f8d48100cbfc61dcedd1c2a0a71de "pdflatex"
-  "entrega1.bbl" 1762094816.60927 3819 7012f87b46d2d98f6b21ad382771acad "bibtex entrega1"
-  "entrega1.out" 1762094998.34975 2056 b09e7a20bc076a637413c21ea80bab71 "pdflatex"
-  "entrega1.toc" 1762094998.35395 1076 d78db6eea6db324a4155b3335eb7d531 "pdflatex"
+  "entrega1.aux" 1762095329.98376 5280 54287600f5feb451769bdc4dd959db54 "pdflatex"
+  "entrega1.bbl" 1762095327.52404 3819 7012f87b46d2d98f6b21ad382771acad "bibtex entrega1"
+  "entrega1.out" 1762095329.98809 2281 88333dd6fac5ca63e186f0439f6fe7fa "pdflatex"
+  "entrega1.toc" 1762095329.99109 1176 aa5b0cb32b3c941179278bfb24dbbe37 "pdflatex"
   (generated)
   "entrega1.aux"
   "entrega1.log"
