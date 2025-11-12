@@ -1,0 +1,279 @@
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{csquotes}
+\usepackage{apacite}    % Normas APA
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{chngcntr}   % Numeración de figuras/tablas por sección
+\usepackage{placeins}   % Control de flotantes con \FloatBarrier
+\usepackage{tabularx}   % Tablas con ajuste automático
+\usepackage{booktabs}   % Tablas más limpias
+\usepackage{float}      % Para usar [H] y fijar posición de figuras
+
+% Configuración de márgenes
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+% Numeración de figuras y tablas por sección
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+% Estilo APA para captions
+\captionsetup[figure]{labelfont=bf, textfont=it, name=Figura, labelsep=period}
+\captionsetup[table]{labelfont=bf, textfont=it, name=Tabla, labelsep=period}
+
+% Datos del documento
+\title{\textbf{Práctica de Laboratorio 2: Configuración de NGiNX como Balanceador de Carga}}
+\author{Wílmer E. León\\ Código: 1520010896 \and Jesús Orlando Orjuela \\ Código: 100384722 \and Hugo Alejandro Mejía \\ Código: 100312289 \and Fabián Andrés Cabana \\ Código: 1620010455}
+\date{Fecha de entrega: 15 de noviembre de 2025}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    {\Huge \textbf{Práctica de Laboratorio 2}}\\[0.5cm]
+    {\LARGE Configuración de NGiNX como Balanceador de Carga}\\[5cm]
+
+    \textbf{Estudiantes:}\\
+    Wílmer E. León \\ Código: 1520010896 \\[0.5cm]
+    Jesús Orlando Orjuela \\ Código: 100384722 \\[0.5cm]
+    Hugo Alejandro Mejía \\ Código: 100312289 \\[0.5cm]
+    Fabián Andrés Cabana \\ Código: 1620010455 \\[2cm]
+    
+
+    \textbf{Docente:}\\
+    José León León \\[4cm]
+
+    {\small Institución Universitaria Politécnico Grancolombiano \\ 
+    Facultad de Ingeniería, Diseño e Innovación \\ 
+    Sistemas Operacionales - Grupo B04 | Grupo de trabajo 11} \\ 
+    Bogotá D.C., Colombia \\ 
+    15 de noviembre de 2025 \\[1cm]
+\end{titlepage}
+
+% Índice automático
+\tableofcontents
+\newpage
+
+\onehalfspacing
+
+\section{Introducción}
+En esta segunda entrega se documenta la configuración e implementación de \textbf{Nginx} como servidor de balanceo de carga para distribuir el tráfico entre las tres máquinas virtuales previamente configuradas en la Entrega 1. Esta práctica permite comprender cómo los balanceadores de carga mejoran la disponibilidad, escalabilidad y rendimiento de aplicaciones distribuidas.
+
+Como se estableció en el marco teórico de la primera entrega, Nginx es un servidor web de alto rendimiento y proxy inverso ampliamente utilizado en arquitecturas modernas de servidores. Su arquitectura basada en eventos y su capacidad para manejar miles de conexiones simultáneas con un consumo mínimo de recursos lo hacen ideal para entornos virtualizados \cite{nginx2024}.
+
+En esta práctica se implementará Nginx en una de las máquinas virtuales (UbunSO1 - 192.168.2.9) que actuará como balanceador de carga, distribuyendo las peticiones HTTP entre las otras dos máquinas (UbunSO2 - 192.168.2.8 y UbunSO3 - 192.168.2.7) que funcionarán como servidores backend.
+
+El documento está estructurado de la siguiente manera: en el Marco teórico se profundiza en los conceptos de balanceo de carga y la arquitectura de Nginx; en el Contenido se detallan los pasos de instalación, configuración y pruebas con capturas de pantalla; finalmente, en las Conclusiones se analizan los resultados obtenidos y las lecciones aprendidas durante la implementación
+
+\section{Marco teórico}
+
+\subsection{Balanceo de carga en sistemas distribuidos}
+
+El balanceo de carga es una técnica fundamental en arquitecturas de sistemas distribuidos que consiste en distribuir el tráfico de red o las cargas de trabajo entre múltiples servidores. Esta distribución permite optimizar el uso de recursos, maximizar el rendimiento, minimizar el tiempo de respuesta y evitar la sobrecarga de cualquier servidor individual \cite{stallings2005}.
+
+Existen diferentes algoritmos de balanceo de carga, cada uno con características específicas. El algoritmo \textbf{round-robin} distribuye las peticiones de manera secuencial y equitativa entre todos los servidores disponibles; \textbf{least connections} dirige el tráfico al servidor con menos conexiones activas; \textbf{ip-hash} asigna clientes a servidores específicos basándose en su dirección IP, garantizando que un cliente siempre sea atendido por el mismo servidor \cite{nginx2024}.
+
+La implementación de un balanceador de carga proporciona múltiples beneficios: alta disponibilidad mediante redundancia (si un servidor falla, el tráfico se redirige automáticamente a los servidores restantes), escalabilidad horizontal (se pueden agregar más servidores según la demanda), y mejor rendimiento general del sistema al distribuir la carga de trabajo de manera eficiente.
+
+\subsection{Nginx como balanceador de carga}
+
+Nginx es un servidor web de alto rendimiento, proxy inverso y balanceador de carga ampliamente utilizado en la industria. Desarrollado inicialmente por Igor Sysoev en 2004, Nginx se ha convertido en uno de los servidores web más populares del mundo debido a su arquitectura basada en eventos y su capacidad para manejar un gran número de conexiones simultáneas con un consumo mínimo de memoria \cite{nginx2024}.
+
+A diferencia de servidores tradicionales que crean un proceso o hilo por cada conexión, Nginx utiliza un modelo asíncrono y no bloqueante basado en eventos. Este diseño le permite procesar miles de conexiones simultáneas de manera eficiente, lo que lo hace especialmente adecuado para actuar como balanceador de carga en entornos de alta concurrencia.
+
+La configuración de Nginx como balanceador de carga se realiza principalmente a través del archivo de configuración ubicado en \texttt{/etc/nginx/sites-available/default}. El bloque \texttt{upstream} define el grupo de servidores backend entre los cuales se distribuirá el tráfico, mientras que el bloque \texttt{server} configura cómo Nginx escucha las peticiones entrantes y las redirige al grupo de servidores backend mediante la directiva \texttt{proxy\_pass}.
+
+\subsection{Instalación y gestión de servicios en Ubuntu Server}
+
+Ubuntu Server utiliza el gestor de paquetes APT (Advanced Package Tool) para la instalación y gestión de software. APT simplifica el proceso de instalación, actualización y eliminación de paquetes, resolviendo automáticamente las dependencias necesarias \cite{canonical2024}.
+
+El sistema de inicio y gestión de servicios en Ubuntu Server se basa en \texttt{systemd}, que proporciona el comando \texttt{systemctl} para controlar los servicios del sistema. Los comandos principales incluyen \texttt{start} (iniciar un servicio), \texttt{stop} (detener un servicio), \texttt{restart} (reiniciar un servicio), \texttt{reload} (recargar la configuración sin interrumpir el servicio), \texttt{enable} (habilitar el inicio automático al arrancar el sistema), y \texttt{status} (verificar el estado actual del servicio).
+
+La correcta gestión de servicios es fundamental en entornos de producción, ya que garantiza la disponibilidad continua de las aplicaciones y permite aplicar cambios de configuración de manera controlada sin interrupciones prolongadas del servicio.
+
+\section{Contenido}
+
+Este laboratorio se desarrolla sobre las tres máquinas virtuales configuradas en la práctica anterior: UbunSO1 (192.168.2.9), UbunSO2 (192.168.2.8) y UbunSO3 (192.168.2.7), todas con Ubuntu Server 22.04 LTS y conectadas en modo adaptador puente. La configuración de Nginx como balanceador de carga se realizó en cuatro pasos fundamentales.
+
+\subsection{Paso 1: Instalación de Nginx en UbunSO1}
+
+El primer paso consiste en instalar el servidor web Nginx en la máquina UbunSO1, que actuará como balanceador de carga. La instalación se realizó mediante el gestor de paquetes APT siguiendo estos comandos:
+
+\begin{enumerate}
+    \item \textbf{Actualización de repositorios:} Se ejecutó el comando \texttt{sudo apt update} para actualizar la lista de paquetes disponibles y sus versiones. Este paso es fundamental para asegurar que se instale la versión más reciente de Nginx disponible en los repositorios oficiales de Ubuntu.
+    
+    \item \textbf{Instalación de Nginx:} Se instaló el paquete nginx mediante \texttt{sudo apt install nginx -y}. El parámetro \texttt{-y} confirma automáticamente la instalación sin requerir intervención del usuario.
+    
+    \item \textbf{Inicio del servicio:} Se inició el servicio de Nginx con \texttt{sudo systemctl start nginx}. Este comando activa inmediatamente el servidor web.
+    
+    \item \textbf{Habilitación del inicio automático:} Se configuró Nginx para iniciarse automáticamente al arrancar el sistema mediante \texttt{sudo systemctl enable nginx}. Esto garantiza que el balanceador de carga esté disponible después de reinicios del servidor.
+    
+    \item \textbf{Verificación del estado:} Se confirmó que el servicio estuviera activo con \texttt{sudo systemctl status nginx}, verificando que aparezca como ``active (running)''.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{capturas/nginx-install.png}
+    \caption{Instalación y verificación del servicio Nginx en UbunSO1.}
+    \label{fig:nginx-install}
+\end{figure}
+
+\subsection{Paso 2: Configuración de Nginx como balanceador de carga}
+
+Una vez instalado Nginx, se procedió a configurarlo como balanceador de carga. La configuración se realizó editando el archivo principal ubicado en \texttt{/etc/nginx/sites-available/default}. Se utilizó el editor de texto \texttt{nano} o \texttt{vim} con permisos de superusuario:
+
+\texttt{sudo nano /etc/nginx/sites-available/default}
+
+El archivo de configuración se modificó para incluir dos secciones principales:
+
+\begin{enumerate}
+    \item \textbf{Bloque upstream:} Define el grupo de servidores backend entre los cuales se distribuirá la carga. Se agregó el siguiente bloque al inicio del archivo:
+
+\begin{verbatim}
+upstream backend {
+    server 192.168.2.8;  # UbunSO2
+    server 192.168.2.7;  # UbunSO3
+}
+\end{verbatim}
+
+Este bloque utiliza el algoritmo de balanceo round-robin por defecto, que distribuye las peticiones de manera secuencial entre los servidores backend. Nginx verificará automáticamente la disponibilidad de cada servidor y redirigirá el tráfico únicamente a los servidores activos.
+
+    \item \textbf{Bloque server:} Configura cómo Nginx escucha las peticiones entrantes y las redirige al grupo de servidores backend:
+
+\begin{verbatim}
+server {
+    listen 80;
+    
+    location / {
+        proxy_pass http://backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+\end{verbatim}
+
+La directiva \texttt{proxy\_pass http://backend} redirige todas las peticiones al grupo de servidores definido en el bloque upstream. Las directivas \texttt{proxy\_set\_header} preservan información importante de la petición original, como la dirección IP del cliente y el host solicitado, información que será útil para los servidores backend.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{capturas/nginx-config.png}
+    \caption{Archivo de configuración de Nginx con upstream backend y proxy\_pass.}
+    \label{fig:nginx-config}
+\end{figure}
+
+\subsection{Paso 3: Verificación de la configuración}
+
+Antes de aplicar los cambios, es fundamental verificar que el archivo de configuración no contenga errores de sintaxis. Nginx proporciona el comando \texttt{nginx -t} para realizar esta validación:
+
+\texttt{sudo nginx -t}
+
+Si la configuración es correcta, el comando mostrará el mensaje ``syntax is ok'' y ``test is successful''. En caso de errores, Nginx indicará la línea y el tipo de error, permitiendo corregirlo antes de reiniciar el servicio.
+
+Una vez verificada la configuración, se recargó el servicio de Nginx para aplicar los cambios sin interrumpir las conexiones existentes:
+
+\texttt{sudo systemctl reload nginx}
+
+El comando \texttt{reload} es preferible a \texttt{restart} porque recarga la configuración sin cerrar las conexiones activas, minimizando el tiempo de inactividad.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{capturas/nginx-test.png}
+    \caption{Verificación de la sintaxis de configuración y recarga del servicio Nginx.}
+    \label{fig:nginx-test}
+\end{figure}
+
+\subsection{Paso 4: Pruebas de balanceo de carga}
+
+Para verificar el funcionamiento del balanceador de carga, se realizaron pruebas de acceso desde un cliente externo y se monitorearon los logs de los servidores backend. El procedimiento incluyó:
+
+\begin{enumerate}
+    \item \textbf{Instalación de servidor web en backend:} En las máquinas UbunSO2 y UbunSO3 se instaló Apache o Nginx para actuar como servidores web:
+    \begin{verbatim}
+    sudo apt update
+    sudo apt install apache2 -y
+    sudo systemctl start apache2
+    \end{verbatim}
+    
+    \item \textbf{Personalización de páginas:} Se crearon páginas HTML simples en cada servidor backend para identificarlos durante las pruebas:
+    \begin{itemize}
+        \item En UbunSO2: \texttt{echo "Servidor UbunSO2 - Backend 1" | sudo tee /var/www/html/index.html}
+        \item En UbunSO3: \texttt{echo "Servidor UbunSO3 - Backend 2" | sudo tee /var/www/html/index.html}
+    \end{itemize}
+    
+    \item \textbf{Acceso desde cliente:} Desde el navegador web de una máquina cliente en la misma red, se accedió repetidamente a la dirección IP del balanceador (http://192.168.2.9). Se observó que las peticiones alternaban entre mostrar ``Servidor UbunSO2'' y ``Servidor UbunSO3'', confirmando el funcionamiento del algoritmo round-robin.
+    
+    \item \textbf{Pruebas con curl:} Se realizaron múltiples peticiones usando el comando \texttt{curl} para observar la distribución de carga:
+    \begin{verbatim}
+    for i in {1..10}; do curl http://192.168.2.9; done
+    \end{verbatim}
+    
+    Este comando ejecutó 10 peticiones consecutivas y mostró la respuesta de cada servidor, evidenciando la distribución equitativa de las peticiones.
+    
+    \item \textbf{Monitoreo de logs:} Se verificaron los logs de acceso en los servidores backend para confirmar que ambos estuvieran recibiendo peticiones:
+    \begin{verbatim}
+    sudo tail -f /var/log/apache2/access.log
+    \end{verbatim}
+    
+    Los logs mostraron peticiones entrantes desde la IP del balanceador (192.168.2.9), confirmando que el tráfico estaba siendo correctamente distribuido.
+    
+    \item \textbf{Prueba de alta disponibilidad:} Se detuvo el servicio web en UbunSO2 con \texttt{sudo systemctl stop apache2} y se verificó que todas las peticiones fueran automáticamente redirigidas a UbunSO3. Al reiniciar el servicio en UbunSO2, Nginx detectó automáticamente su disponibilidad y reanudó la distribución de carga entre ambos servidores.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{capturas/curl-test-backend1.png}
+        \caption{Respuesta desde UbunSO2 (Backend 1)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{capturas/curl-test-backend2.png}
+        \caption{Respuesta desde UbunSO3 (Backend 2)}
+    \end{subfigure}
+    \caption{Pruebas de conectividad mostrando distribución de carga entre servidores backend.}
+    \label{fig:curl-tests}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{capturas/logs-balanceo.png}
+    \caption{Logs de acceso en servidores backend mostrando peticiones distribuidas por el balanceador.}
+    \label{fig:logs}
+\end{figure}
+
+\FloatBarrier
+
+\section{Conclusiones}
+
+La implementación de Nginx como balanceador de carga sobre la infraestructura de máquinas virtuales configurada en la práctica anterior permitió observar en la práctica los conceptos fundamentales de distribución de carga en sistemas distribuidos. La configuración en modo adaptador puente establecida previamente resultó esencial para permitir la comunicación directa entre el balanceador (UbunSO1) y los servidores backend (UbunSO2 y UbunSO3).
+
+El proceso de instalación y configuración de Nginx demostró la facilidad con la que Ubuntu Server permite gestionar servicios mediante APT y systemd. La configuración del bloque \texttt{upstream} y el uso de \texttt{proxy\_pass} son elementos fundamentales que permiten a Nginx distribuir eficientemente el tráfico entre múltiples servidores backend utilizando el algoritmo round-robin por defecto.
+
+Las pruebas realizadas confirmaron el correcto funcionamiento del balanceador de carga, observándose la distribución equitativa de peticiones entre los servidores backend. Particularmente relevante fue la prueba de alta disponibilidad, donde al detener uno de los servidores backend, Nginx detectó automáticamente su indisponibilidad y redirigió todas las peticiones al servidor restante, demostrando la capacidad del sistema para mantener la disponibilidad del servicio ante fallos de componentes individuales.
+
+De acuerdo con \citeA{nginx2024}, la arquitectura basada en eventos de Nginx le permite manejar miles de conexiones simultáneas con mínimo consumo de recursos, características que pudieron observarse durante las pruebas de carga. \citeA{stallings2005} enfatiza la importancia de los sistemas de balanceo de carga en arquitecturas modernas para garantizar escalabilidad y alta disponibilidad, aspectos que se materializaron en esta implementación práctica.
+
+La integración de conceptos teóricos sobre balanceo de carga con su implementación práctica refuerza la comprensión de arquitecturas distribuidas. Esta práctica sienta las bases para implementaciones más complejas que podrían incluir algoritmos de balanceo alternativos (least connections, ip-hash), gestión de sesiones, o la integración con herramientas de monitoreo y orquestación como Docker y Kubernetes, tal como sugieren \citeA{canonical2024} en sus guías de mejores prácticas para entornos de producción.  
+
+% Forzamos que todas las figuras se impriman antes de la bibliografía
+\FloatBarrier
+
+\section{Referencias}
+\bibliographystyle{apacite}
+\bibliography{referencias}
+
+\end{document}
