@@ -1,0 +1,74 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Canonical%
+}{%
+Canonical%
+}{%
+{\protect \APACyear {2024}}%
+}]{%
+canonical2024}
+\APACinsertmetastar {%
+canonical2024}%
+\begin{APACrefauthors}%
+Canonical.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2024}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Ubuntu Server Documentation} {Ubuntu server
+  documentation}{\BBCQ}\ [\bibcomputersoftwaremanual].
+\newblock
+\begin{APACrefURL} \url{https://ubuntu.com/server/docs} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Networks%
+}{%
+Networks%
+}{%
+{\protect \APACyear {2024}}%
+}]{%
+nginx2024}
+\APACinsertmetastar {%
+nginx2024}%
+\begin{APACrefauthors}%
+Networks, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2024}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Nginx Documentation: Load Balancing} {Nginx
+  documentation: Load balancing}{\BBCQ}\ [\bibcomputersoftwaremanual].
+\newblock
+\begin{APACrefURL} \url{https://nginx.org/en/docs/http/load_balancing.html}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Stallings%
+}{%
+Stallings%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+stallings2005}
+\APACinsertmetastar {%
+stallings2005}%
+\begin{APACrefauthors}%
+Stallings, W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2005}.
+\newblock
+\APACrefbtitle {Sistemas operativos: Aspectos internos y principios de diseño}
+  {Sistemas operativos: Aspectos internos y principios de diseño}\
+  (\PrintOrdinal{5a ed.}\ \BEd).
+\newblock
+\APACaddressPublisher{Madrid}{Pearson Prentice Hall}.
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}
