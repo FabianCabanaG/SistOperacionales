@@ -257,6 +257,195 @@ Para verificar el funcionamiento del balanceador de carga, se realizaron pruebas
 
 \FloatBarrier
 
+\section{Implementación alternativa con Docker}
+
+Docker representa una alternativa moderna y eficiente para implementar arquitecturas de balanceo de carga mediante contenedores. A diferencia de la virtualización tradicional con VirtualBox, Docker utiliza contenedores que comparten el kernel del sistema operativo host, lo que resulta en un menor consumo de recursos y tiempos de inicio significativamente más rápidos.
+
+\subsection{Arquitectura con contenedores Docker}
+
+La implementación con Docker consiste en crear tres contenedores que replican la arquitectura de las máquinas virtuales: un contenedor para Nginx como balanceador de carga y dos contenedores adicionales como servidores backend. Todos los contenedores se conectan a través de una red Docker personalizada que permite la comunicación entre ellos mediante nombres de servicio.
+
+\subsection{Configuración de la red Docker}
+
+Primero se crea una red bridge personalizada que permitirá la comunicación entre los contenedores:
+
+\begin{verbatim}
+docker network create nginx-loadbalancer-net
+\end{verbatim}
+
+Esta red proporciona resolución DNS automática, permitiendo que los contenedores se comuniquen usando sus nombres en lugar de direcciones IP estáticas.
+
+\subsection{Despliegue de servidores backend}
+
+Se despliegan dos contenedores con servidores web Nginx actuando como backend:
+
+\begin{verbatim}
+# Servidor Backend 1
+docker run -d --name backend1 \
+  --network nginx-loadbalancer-net \
+  -p 8081:80 \
+  nginx:alpine
+
+# Servidor Backend 2
+docker run -d --name backend2 \
+  --network nginx-loadbalancer-net \
+  -p 8082:80 \
+  nginx:alpine
+\end{verbatim}
+
+Cada contenedor expone su puerto 80 interno a puertos diferentes del host (8081 y 8082) para permitir acceso directo durante las pruebas. Se utiliza la imagen \texttt{nginx:alpine} por su tamaño reducido y eficiencia.
+
+\subsection{Personalización de páginas backend}
+
+Para identificar cada servidor durante las pruebas, se personalizan las páginas de inicio:
+
+\begin{verbatim}
+# Backend 1
+docker exec backend1 sh -c \
+  'echo "<h1>Backend Server 1</h1>" > /usr/share/nginx/html/index.html'
+
+# Backend 2
+docker exec backend2 sh -c \
+  'echo "<h1>Backend Server 2</h1>" > /usr/share/nginx/html/index.html'
+\end{verbatim}
+
+\subsection{Configuración del balanceador de carga}
+
+Se crea un archivo de configuración para el balanceador Nginx (\texttt{nginx-lb.conf}):
+
+\begin{verbatim}
+upstream backend_servers {
+    server backend1:80;
+    server backend2:80;
+}
+
+server {
+    listen 80;
+    
+    location / {
+        proxy_pass http://backend_servers;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+\end{verbatim}
+
+Nótese que se utilizan los nombres de los contenedores (\texttt{backend1} y \texttt{backend2}) en lugar de direcciones IP, gracias a la resolución DNS proporcionada por la red Docker.
+
+\subsection{Despliegue del balanceador}
+
+Se despliega el contenedor del balanceador montando el archivo de configuración:
+
+\begin{verbatim}
+docker run -d --name load-balancer \
+  --network nginx-loadbalancer-net \
+  -p 80:80 \
+  -v $(pwd)/nginx-lb.conf:/etc/nginx/conf.d/default.conf:ro \
+  nginx:alpine
+\end{verbatim}
+
+El balanceador escucha en el puerto 80 del host y distribuye las peticiones entre los dos contenedores backend.
+
+\subsection{Verificación y pruebas}
+
+Para verificar el funcionamiento del balanceador con Docker:
+
+\begin{enumerate}
+    \item \textbf{Verificar estado de contenedores:}
+    \begin{verbatim}
+    docker ps
+    \end{verbatim}
+    
+    \item \textbf{Probar acceso directo a backends:}
+    \begin{verbatim}
+    curl http://localhost:8081  # Backend 1
+    curl http://localhost:8082  # Backend 2
+    \end{verbatim}
+    
+    \item \textbf{Probar balanceador de carga:}
+    \begin{verbatim}
+    for i in {1..10}; do curl http://localhost; done
+    \end{verbatim}
+    Se observará la alternancia entre ``Backend Server 1'' y ``Backend Server 2''.
+    
+    \item \textbf{Verificar logs del balanceador:}
+    \begin{verbatim}
+    docker logs load-balancer
+    \end{verbatim}
+    
+    \item \textbf{Prueba de alta disponibilidad:}
+    \begin{verbatim}
+    docker stop backend1
+    curl http://localhost
+    \end{verbatim}
+    Todas las peticiones serán atendidas por backend2. Al reiniciar backend1 con \texttt{docker start backend1}, el balanceo se reanuda automáticamente.
+\end{enumerate}
+
+\subsection{Docker Compose para orquestación}
+
+Para simplificar el despliegue, se puede utilizar Docker Compose con un archivo \texttt{docker-compose.yml}:
+
+\begin{verbatim}
+version: '3.8'
+
+services:
+  backend1:
+    image: nginx:alpine
+    networks:
+      - loadbalancer-net
+    volumes:
+      - ./backend1/index.html:/usr/share/nginx/html/index.html
+
+  backend2:
+    image: nginx:alpine
+    networks:
+      - loadbalancer-net
+    volumes:
+      - ./backend2/index.html:/usr/share/nginx/html/index.html
+
+  load-balancer:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    networks:
+      - loadbalancer-net
+    volumes:
+      - ./nginx-lb.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend1
+      - backend2
+
+networks:
+  loadbalancer-net:
+    driver: bridge
+\end{verbatim}
+
+Con este archivo, todo el stack se despliega con un solo comando: \texttt{docker-compose up -d}
+
+\subsection{Ventajas de la implementación con Docker}
+
+La implementación con contenedores Docker ofrece múltiples ventajas sobre la virtualización tradicional:
+
+\begin{itemize}
+    \item \textbf{Menor consumo de recursos:} Los contenedores comparten el kernel del host, utilizando menos memoria y CPU que máquinas virtuales completas.
+    \item \textbf{Inicio rápido:} Los contenedores se inician en segundos, mientras que las VMs requieren minutos.
+    \item \textbf{Portabilidad:} La configuración se puede replicar fácilmente en diferentes entornos mediante archivos de configuración.
+    \item \textbf{Escalabilidad:} Es trivial agregar más contenedores backend con \texttt{docker-compose scale}.
+    \item \textbf{Aislamiento:} Cada contenedor opera de forma aislada, mejorando la seguridad.
+    \item \textbf{Versionado:} Las imágenes Docker permiten mantener versiones específicas de software.
+    \item \textbf{Integración CI/CD:} Docker se integra perfectamente con pipelines de integración y despliegue continuo.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{capturas/Docker/containers.png}
+    \caption{Vista de contenedores Docker ejecutando la arquitectura de balanceo de carga en OrbStack.}
+    \label{fig:docker-containers}
+\end{figure}
+
+\FloatBarrier
+
 \section{Conclusiones}
 
 La implementación de Nginx como balanceador de carga sobre la infraestructura de máquinas virtuales configurada en la práctica anterior permitió observar en la práctica los conceptos fundamentales de distribución de carga en sistemas distribuidos. La configuración en modo adaptador puente establecida previamente resultó esencial para permitir la comunicación directa entre el balanceador (UbunSO1) y los servidores backend (UbunSO2 y UbunSO3).
@@ -267,7 +456,9 @@ Las pruebas realizadas confirmaron el correcto funcionamiento del balanceador de
 
 De acuerdo con \citeA{nginx2024}, la arquitectura basada en eventos de Nginx le permite manejar miles de conexiones simultáneas con mínimo consumo de recursos, características que pudieron observarse durante las pruebas de carga. \citeA{stallings2005} enfatiza la importancia de los sistemas de balanceo de carga en arquitecturas modernas para garantizar escalabilidad y alta disponibilidad, aspectos que se materializaron en esta implementación práctica.
 
-La integración de conceptos teóricos sobre balanceo de carga con su implementación práctica refuerza la comprensión de arquitecturas distribuidas. Esta práctica sienta las bases para implementaciones más complejas que podrían incluir algoritmos de balanceo alternativos (least connections, ip-hash), gestión de sesiones, o la integración con herramientas de monitoreo y orquestación como Docker y Kubernetes, tal como sugieren \citeA{canonical2024} en sus guías de mejores prácticas para entornos de producción.  
+La implementación alternativa con Docker demostró las ventajas de la contenedorización sobre la virtualización tradicional: menor consumo de recursos, tiempos de inicio más rápidos y mayor facilidad de despliegue mediante Docker Compose. Esta aproximación es particularmente relevante en entornos de desarrollo modernos y entornos de producción basados en microservicios, donde la agilidad y la eficiencia son fundamentales.
+
+La integración de conceptos teóricos sobre balanceo de carga con su implementación práctica, tanto en máquinas virtuales como en contenedores Docker, refuerza la comprensión de arquitecturas distribuidas desde múltiples perspectivas tecnológicas. Esta práctica sienta las bases para implementaciones más complejas que podrían incluir algoritmos de balanceo alternativos (least connections, ip-hash), gestión de sesiones, monitoreo con herramientas como Prometheus y Grafana, o la orquestación con Kubernetes, tal como sugieren \citeA{canonical2024} en sus guías de mejores prácticas para entornos de producción.  
 
 % Forzamos que todas las figuras se impriman antes de la bibliografía
 \FloatBarrier
