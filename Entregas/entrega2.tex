@@ -1,6 +1,9 @@
+
 \documentclass[12pt,a4paper]{article}
 
 % Paquetes básicos
+\usepackage{ifpdf}
+\usepackage{ifthen}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
@@ -13,7 +16,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{tikz}
-\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
 \usepackage{chngcntr}   % Numeración de figuras/tablas por sección
 \usepackage{placeins}   % Control de flotantes con \FloatBarrier
 \usepackage{tabularx}   % Tablas con ajuste automático
@@ -140,6 +143,7 @@ El archivo de configuración se modificó para incluir dos secciones principales
 \begin{enumerate}
     \item \textbf{Bloque upstream:} Define el grupo de servidores backend entre los cuales se distribuirá la carga. Se agregó el siguiente bloque al inicio del archivo:
 
+
 \begin{verbatim}
 upstream backend {
     server 192.168.2.8;  # UbunSO2
@@ -148,6 +152,14 @@ upstream backend {
 \end{verbatim}
 
 Este bloque utiliza el algoritmo de balanceo round-robin por defecto, que distribuye las peticiones de manera secuencial entre los servidores backend. Nginx verificará automáticamente la disponibilidad de cada servidor y redirigirá el tráfico únicamente a los servidores activos.
+
+% Diagrama de balanceo de carga con TikZ (corregido para modo LR)
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{capturas/diagrama-balanceo.png}
+  \caption{Diagrama de arquitectura: balanceo de carga con Nginx entre dos servidores backend.}
+  \label{fig:tikz-balanceo}
+\end{figure}
 
     \item \textbf{Bloque server:} Configura cómo Nginx escucha las peticiones entrantes y las redirige al grupo de servidores backend:
 
@@ -443,6 +455,11 @@ La implementación con contenedores Docker ofrece múltiples ventajas sobre la v
     \caption{Vista de contenedores Docker ejecutando la arquitectura de balanceo de carga en OrbStack.}
     \label{fig:docker-containers}
 \end{figure}
+
+
+
+
+
 
 \FloatBarrier
 

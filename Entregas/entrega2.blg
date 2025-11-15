@@ -17,15 +17,15 @@ Database file #1: referencias.bib
 apacite.bst [2013/07/21 v6.03 APA bibliography style]
 You've used 3 entries,
             6951 wiz_defined-function locations,
-            1284 strings with 10970 characters,
-and the built_in function-call counts, 4397 in all, are:
-= -- 551
+            1284 strings with 10929 characters,
+and the built_in function-call counts, 4264 in all, are:
+= -- 536
 > -- 30
-< -- 176
-+ -- 153
+< -- 161
++ -- 138
 - -- 8
-* -- 257
-:= -- 785
+* -- 244
+:= -- 742
 add.period$ -- 12
 call.type$ -- 3
 change.case$ -- 51
@@ -34,7 +34,7 @@ cite$ -- 6
 duplicate$ -- 100
 empty$ -- 217
 format.name$ -- 42
-if$ -- 894
+if$ -- 879
 int.to.chr$ -- 0
 int.to.str$ -- 9
 missing$ -- 0
@@ -44,9 +44,9 @@ pop$ -- 201
 preamble$ -- 1
 purify$ -- 12
 quote$ -- 0
-skip$ -- 217
+skip$ -- 215
 stack$ -- 0
-substring$ -- 167
+substring$ -- 152
 swap$ -- 75
 text.length$ -- 7
 text.prefix$ -- 0

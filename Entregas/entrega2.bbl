@@ -24,9 +24,9 @@ Canonical.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
-Networks%
+Inc.%
 }{%
-Networks%
+Inc.%
 }{%
 {\protect \APACyear {2024}}%
 }]{%
@@ -34,17 +34,16 @@ nginx2024}
 \APACinsertmetastar {%
 nginx2024}%
 \begin{APACrefauthors}%
-Networks, F.%
+Inc., N.%
 \end{APACrefauthors}%
 \unskip\
 \newblock
 \APACrefYearMonthDay{2024}{}{}.
 \newblock
-{\BBOQ}\APACrefatitle {Nginx Documentation: Load Balancing} {Nginx
-  documentation: Load balancing}{\BBCQ}\ [\bibcomputersoftwaremanual].
+{\BBOQ}\APACrefatitle {NGINX Documentation} {Nginx documentation}{\BBCQ}\
+  [\bibcomputersoftwaremanual].
 \newblock
-\begin{APACrefURL} \url{https://nginx.org/en/docs/http/load_balancing.html}
-  \end{APACrefURL}
+\begin{APACrefURL} \url{https://nginx.org/en/docs/} \end{APACrefURL}
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%

@@ -1,0 +1,19 @@
+@startuml
+nwdiag {
+  network red_lan {
+      address = "192.168.2.0/24"
+      Cliente [address = "192.168.2.100", description = "Cliente Web"];
+      Nginx [address = "192.168.2.9", description = "Balanceador Nginx"];
+      Backend1 [address = "192.168.2.8", description = "Backend 1 (UbunSO2)"];
+      Backend2 [address = "192.168.2.7", description = "Backend 2 (UbunSO3)"];
+  }
+
+  group {
+    color = "#E5F3FF";
+    description = "Balanceo de carga con Nginx";
+    Nginx;
+    Backend1;
+    Backend2;
+  }
+}
+@enduml

@@ -8,17 +8,17 @@
 \contentsline {subsection}{\numberline {3.1}Paso 1: Instalación de Nginx en UbunSO1}{4}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Paso 2: Configuración de Nginx como balanceador de carga}{5}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Paso 3: Verificación de la configuración}{7}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Paso 4: Pruebas de balanceo de carga}{7}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Implementación alternativa con Docker}{9}{section.4}%
+\contentsline {subsection}{\numberline {3.4}Paso 4: Pruebas de balanceo de carga}{8}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Implementación alternativa con Docker}{10}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Arquitectura con contenedores Docker}{10}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Configuración de la red Docker}{10}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Despliegue de servidores backend}{10}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.3}Despliegue de servidores backend}{11}{subsection.4.3}%
 \contentsline {subsection}{\numberline {4.4}Personalización de páginas backend}{11}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Configuración del balanceador de carga}{11}{subsection.4.5}%
-\contentsline {subsection}{\numberline {4.6}Despliegue del balanceador}{11}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.5}Configuración del balanceador de carga}{12}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Despliegue del balanceador}{12}{subsection.4.6}%
 \contentsline {subsection}{\numberline {4.7}Verificación y pruebas}{12}{subsection.4.7}%
 \contentsline {subsection}{\numberline {4.8}Docker Compose para orquestación}{13}{subsection.4.8}%
 \contentsline {subsection}{\numberline {4.9}Ventajas de la implementación con Docker}{14}{subsection.4.9}%
-\contentsline {section}{\numberline {5}Conclusiones}{14}{section.5}%
+\contentsline {section}{\numberline {5}Conclusiones}{15}{section.5}%
 \contentsline {section}{\numberline {6}Referencias}{16}{section.6}%
-\contentsline {section}{Referencias}{16}{section*.8}%
+\contentsline {section}{Referencias}{16}{section*.9}%
