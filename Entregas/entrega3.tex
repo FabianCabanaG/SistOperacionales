@@ -1,0 +1,122 @@
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{apacite}
+\usepackage{float}
+\usepackage{placeins}
+
+% Márgenes
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+% Datos
+\title{Práctica de Laboratorio 3: Pruebas de Rendimiento y Planificación de Procesos}
+\author{Wílmer E. León et al.}
+\date{Fecha: \today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\onehalfspacing
+
+\section{Introducción}
+En esta entrega se documentan pruebas adicionales para evaluar el rendimiento del balanceo de carga configurado previamente y una profundización en algoritmos de planificación de procesos en sistemas operativos.
+
+\section{Parte 3: Pruebas Adicionales y Evaluación del Rendimiento}
+\subsection{Paso 1: Preparación de Pruebas}
+Se propone el uso de herramientas como Apache Benchmark (\texttt{ab}) o \texttt{siege} para generar tráfico HTTP hacia el balanceador de carga. Diseñe al menos dos escenarios: tráfico ligero (p. ej. 100 peticiones) y tráfico pesado (p. ej. 10.000 peticiones concurrentes con X concurrencia).
+
+\subsection{Paso 2: Ejecución de Pruebas}
+Ejecute las pruebas desde una máquina cliente. A continuación se muestra un ejemplo con \texttt{ab} (esto también está en \texttt{run\_tests.ps1}):
+\begin{verbatim}
+ab -n 1000 -c 50 http://192.168.2.9/
+\end{verbatim}
+
+Incluya capturas de las métricas relevantes y logs. A modo de ejemplo se utiliza la imagen del test previo:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{capturas/nginx-test.png}
+  \caption{Ejecución de pruebas y salida de ejemplo.}
+  \label{fig:nginx-test}
+\end{figure}
+
+\subsection{Paso 3: Registro de métricas}
+Registre métricas por prueba: tiempo de respuesta promedio (ms), requests por segundo, tasa de error, CPU y memoria de backends. Use tablas para resumir resultados.
+
+\begin{table}[H]
+\centering
+\caption{Resumen de métricas ejemplo}
+\begin{tabularx}{0.9\textwidth}{lXXXX}
+\toprule
+Escenario & Requests/s & Tiempo medio (ms) & CPU promedio (\%) & Errores \\
+\midrule
+Ligero & 1200 & 85 & 12 & 0 \\
+Pesado & 420 & 260 & 75 & 2 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Paso 4: Análisis de Resultados}
+Analice variaciones entre escenarios y busque cuellos de botella (ej.: CPU alta en backends, saturación de red, tiempos de espera altos). Proponga mitigaciones: añadir réplicas backend, ajustar timeouts, balanceo por least-connections.
+
+\section{Profundización: Planificación de Procesos en Sistemas Operativos}
+\subsection{Paso 5: Algoritmos seleccionados}
+Se analizarán los algoritmos: FIFO (FCFS), SJF (Shortest Job First) y Round Robin (RR).
+
+\subsection{FIFO (First-In-First-Out)}
+\textbf{Funcionamiento:} Los procesos se atienden en orden de llegada.
+\textbf{Criterio de selección:} orden de llegada.\\
+\textbf{Ventajas:} sencillo, justo para llegada secuencial.\\
+\textbf{Desventajas:} puede causar tiempos de espera largos (convoy effect).\\
+\textbf{Casos de uso:} entornos con cargas homogéneas y poca concurrencia.
+
+\subsection{SJF (Shortest Job First)}
+\textbf{Funcionamiento:} se selecciona el proceso con menor tiempo de ejecución esperado.
+\textbf{Criterio de selección:} duración estimada del trabajo.\\
+\textbf{Ventajas:} minimiza tiempo de espera promedio.\\
+\textbf{Desventajas:} requiere estimaciones; puede producir inanición de trabajos largos.\\
+\textbf{Casos de uso:} sistemas por lotes donde se conocen tiempos de ejecución.
+
+\subsection{Round Robin (RR)}
+\textbf{Funcionamiento:} cada proceso recibe un quantum de CPU por turno.
+\textbf{Criterio de selección:} tiempo circular con quantum fijo.\\
+\textbf{Ventajas:} buena respuesta interactiva, equidad.\\
+\textbf{Desventajas:} elección de quantum crítica; context switches frecuentes si quantum pequeño.\\
+\textbf{Casos de uso:} sistemas interactivos y multiusuario.
+
+\subsection{Comparación}
+\begin{table}[H]
+\centering
+\caption{Comparación simplificada de algoritmos}
+\begin{tabularx}{0.95\textwidth}{lXXXX}
+\toprule
+Algoritmo & Tiempo respuesta & Tiempo espera & Eficiencia & Uso recomendable \\
+\midrule
+FIFO & Alto en promedio & Alto & Medio & Trabajos secuenciales \\
+SJF & Bajo & Bajo & Alto & Batch con estimaciones \\
+RR & Medio-Bajo & Medio & Variable & Sistemas interactivos \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Conclusiones}
+Resuma hallazgos sobre el rendimiento del balanceador y las recomendaciones sobre planificación de procesos.
+
+\FloatBarrier
+\section{Referencias}
+% Incluir todas las entradas de referencias3.bib aunque no se citen explícitamente
+\nocite{*}
+\bibliographystyle{apacite}
+\bibliography{referencias3}
+
+\end{document}
