@@ -1,0 +1,272 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Arena%
+}{%
+Arena%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+arena2002}
+\APACinsertmetastar {%
+arena2002}%
+\begin{APACrefauthors}%
+Arena, H\BPBI F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2002}.
+\newblock
+\APACrefbtitle {La Biblia de Linux} {La biblia de linux}.
+\newblock
+\APACaddressPublisher{Buenos Aires}{MP Ediciones}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Arena%
+}{%
+Arena%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+arena2005}
+\APACinsertmetastar {%
+arena2005}%
+\begin{APACrefauthors}%
+Arena, H\BPBI F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2005}.
+\newblock
+\APACrefbtitle {La Biblia de Linux: Manual de uso, instalación y
+  configuración} {La biblia de linux: Manual de uso, instalación y
+  configuración}.
+\newblock
+\APACaddressPublisher{Buenos Aires}{RedUsers}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Canonical%
+}{%
+Canonical%
+}{%
+{\protect \APACyear {2024}}%
+}]{%
+canonical2024}
+\APACinsertmetastar {%
+canonical2024}%
+\begin{APACrefauthors}%
+Canonical.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2024}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Ubuntu Server Documentation} {Ubuntu server
+  documentation}{\BBCQ}\ [\bibcomputersoftwaremanual].
+\newblock
+\begin{APACrefURL} \url{https://ubuntu.com/server/docs} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Foundation%
+}{%
+Foundation%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+ab2018}
+\APACinsertmetastar {%
+ab2018}%
+\begin{APACrefauthors}%
+Foundation, T\BPBI A\BPBI S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {ab - Apache HTTP server benchmarking tool} {ab - apache
+  http server benchmarking tool}{\BBCQ}\ [\bibcomputersoftwaremanual].
+\newblock
+\begin{APACrefURL} \url{https://httpd.apache.org/docs/2.4/programs/ab.html}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fulmer%
+\ \BBA {} maintainers%
+}{%
+Fulmer%
+\ \BBA {} maintainers%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+siege2019}
+\APACinsertmetastar {%
+siege2019}%
+\begin{APACrefauthors}%
+Fulmer, J.%
+\BCBT {}\ \BBA {} maintainers, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Siege - HTTP load testing and benchmarking utility}
+  {Siege - http load testing and benchmarking utility}{\BBCQ}\
+  [\bibcomputersoftwaremanual].
+\newblock
+\begin{APACrefURL} \url{https://www.joedog.org/siege-home/} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Inc.%
+}{%
+Inc.%
+}{%
+{\protect \APACyear {2024}}%
+}]{%
+nginx2024}
+\APACinsertmetastar {%
+nginx2024}%
+\begin{APACrefauthors}%
+Inc., N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2024}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {NGINX Documentation} {Nginx documentation}{\BBCQ}\
+  [\bibcomputersoftwaremanual].
+\newblock
+\begin{APACrefURL} \url{https://nginx.org/en/docs/} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Oracle%
+}{%
+Oracle%
+}{%
+{\protect \APACyear {2024}}%
+}]{%
+oracle2024}
+\APACinsertmetastar {%
+oracle2024}%
+\begin{APACrefauthors}%
+Oracle.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2024}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {VirtualBox User Manual} {Virtualbox user manual}{\BBCQ}\
+  [\bibcomputersoftwaremanual].
+\newblock
+\begin{APACrefURL} \url{https://www.virtualbox.org/manual/} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Silberschatz%
+, Galvin%
+\BCBL {}\ \BBA {} Gagne%
+}{%
+Silberschatz%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2008}}%
+}]{%
+silberschatz2008}
+\APACinsertmetastar {%
+silberschatz2008}%
+\begin{APACrefauthors}%
+Silberschatz, A.%
+, Galvin, P\BPBI B.%
+\BCBL {}\ \BBA {} Gagne, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2008}.
+\newblock
+\APACrefbtitle {Fundamentos de sistemas operativos} {Fundamentos de sistemas
+  operativos}\ (\PrintOrdinal{7a ed.}\ \BEd).
+\newblock
+\APACaddressPublisher{México}{McGraw-Hill}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Stallings%
+}{%
+Stallings%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+stallings2002}
+\APACinsertmetastar {%
+stallings2002}%
+\begin{APACrefauthors}%
+Stallings, W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2002}.
+\newblock
+\APACrefbtitle {Sistemas Operativos} {Sistemas operativos}\ (\PrintOrdinal{2a
+  ed.}\ \BEd).
+\newblock
+\APACaddressPublisher{Madrid}{Prentice Hall}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Stallings%
+}{%
+Stallings%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+stallings2005}
+\APACinsertmetastar {%
+stallings2005}%
+\begin{APACrefauthors}%
+Stallings, W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2005}.
+\newblock
+\APACrefbtitle {Sistemas operativos: Aspectos internos y principios de diseño}
+  {Sistemas operativos: Aspectos internos y principios de diseño}\
+  (\PrintOrdinal{5a ed.}\ \BEd).
+\newblock
+\APACaddressPublisher{Madrid}{Pearson Prentice Hall}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wolf%
+, Ruiz%
+, Bergero%
+\BCBL {}\ \BBA {} Meza%
+}{%
+Wolf%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+wolf2010}
+\APACinsertmetastar {%
+wolf2010}%
+\begin{APACrefauthors}%
+Wolf, G.%
+, Ruiz, E.%
+, Bergero, F.%
+\BCBL {}\ \BBA {} Meza, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2010}.
+\newblock
+\APACrefbtitle {Fundamentos de Sistemas Operativos} {Fundamentos de sistemas
+  operativos}.
+\newblock
+\APACaddressPublisher{México}{Universidad Nacional Autónoma de México}.
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

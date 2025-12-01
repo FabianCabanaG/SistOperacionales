@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex entrega2"] 1763228016.01914 "entrega2.aux" "entrega2.bbl" "entrega2" 1763228021.83906 0
+["bibtex entrega2"] 1764545157.86168 "entrega2.aux" "entrega2.bbl" "entrega2" 1764545164.17843 0
   "./referencias.bib" 1763227911.61604 1890 471ddc778c32c40a18c93d020a18e110 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/bibtex/bst/apacite/apacite.bst" 1374952728 146156 ecb25f7102744fefab6424686f49047c ""
-  "entrega2.aux" 1763228019.69056 6593 daf8bd7d78cd2bea07e0a963b7e9ad27 "pdflatex"
+  "entrega2.aux" 1764545162.14866 6588 f9be5cc183dd6ed08bd653ae2827d617 "pdflatex"
   (generated)
   "entrega2.bbl"
   "entrega2.blg"
   (rewritten before read)
-["pdflatex"] 1763228016.71295 "c:/Users/Wilme/SistOperacionales/Entregas/entrega2.tex" "entrega2.pdf" "entrega2" 1763228021.84098 0
+["pdflatex"] 1764545158.59024 "c:/Users/Wilme/SistOperacionales/Entregas/entrega2.tex" "entrega2.pdf" "entrega2" 1764545164.18006 0
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1762016559.62963 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1761838190.56118 28976 77c6c569c2db4cb378b0be3fc79d2bac ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1761323448.69424 31952 2c7fd51e71292b6596313308d052a918 ""
@@ -175,19 +175,19 @@
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1749468414 7243 a2c17f18e2c9b702b84fad03d5f9c78b ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
-  "c:/Users/Wilme/SistOperacionales/Entregas/entrega2.tex" 1763228004.71476 26820 376fafc005f0d6498517d7c44a314a4e ""
+  "c:/Users/Wilme/SistOperacionales/Entregas/entrega2.tex" 1764545150.72671 26820 376fafc005f0d6498517d7c44a314a4e ""
   "capturas/Docker/containers.png" 1762027169.37376 197144 6c564330ff7bfc2758b374603c5a1798 ""
-  "capturas/curl-test-backend1.png" 1761835288.29722 240835 5e82c1bf24a18c7e7310ae81db9a7cb7 ""
-  "capturas/curl-test-backend2.png" 1761835284.9433 222211 f48e875b6d5b2b248d41fecbd367e285 ""
+  "capturas/curl-test-backend1.png" 1763669896.63237 357005 64351905d7732743a58e44f2f6967b5e ""
+  "capturas/curl-test-backend2.png" 1763669896.68464 113428 6728b1621669bd839154adbf460f07b4 ""
   "capturas/diagrama-balanceo.png" 1763223033.75174 10786 e76007b9345369933160fb3501a0cbc0 ""
   "capturas/logs-balanceo.png" 1761835283.59131 244964 17479c023337bdf0fac57995e8a59b9e ""
-  "capturas/nginx-config.png" 1761835286.72973 113171 b113daa18aaa5929a58edc505bc33383 ""
-  "capturas/nginx-install.png" 1761835290.25102 114526 a636100c8b0c24937cf4914cf83c0c2c ""
-  "capturas/nginx-test.png" 1761835281.3031 113391 d85fffd46b9c64d71847944465ce1c21 ""
-  "entrega2.aux" 1763228019.69056 6593 daf8bd7d78cd2bea07e0a963b7e9ad27 "pdflatex"
-  "entrega2.bbl" 1763228016.56806 1640 e4823764a21d36d4e92cb6632fe273ed "bibtex entrega2"
-  "entrega2.out" 1763228019.69551 4948 36f87ba963916fe19b8cd0e95a804452 "pdflatex"
-  "entrega2.toc" 1763228019.70237 2183 2a2376d9f3257ce872de852a7c00649a "pdflatex"
+  "capturas/nginx-config.png" 1763669896.68945 182380 e705b0d50e8a366737d133f8e06ce4fc ""
+  "capturas/nginx-install.png" 1763669896.70756 31888 6424d0b14afd774b910c53710505673f ""
+  "capturas/nginx-test.png" 1763669896.71159 24181 64002f3754efc131776bc8f324007c59 ""
+  "entrega2.aux" 1764545162.14866 6588 f9be5cc183dd6ed08bd653ae2827d617 "pdflatex"
+  "entrega2.bbl" 1764545158.37159 1640 e4823764a21d36d4e92cb6632fe273ed "bibtex entrega2"
+  "entrega2.out" 1764545162.15703 4948 36f87ba963916fe19b8cd0e95a804452 "pdflatex"
+  "entrega2.toc" 1764545162.16334 2180 cc8019ca18cbbb7ddfadaac7cd42876f "pdflatex"
   (generated)
   "entrega2.aux"
   "entrega2.log"
