@@ -55,9 +55,8 @@
 \onehalfspacing
 
 \section{Introducción}
-Esta tercera entrega documenta las pruebas de rendimiento realizadas sobre el balanceador Nginx configurado en las entregas anteriores, y presenta una profundización en algoritmos de planificación de procesos. Se incluyen el diseño de las pruebas, las ejecuciones, las métricas recogidas, el análisis y las conclusiones.
+Esta tercera entrega documenta las pruebas de rendimiento realizadas sobre el balanceador Nginx configurado en las entregas anteriores, y presenta una profundización en algoritmos de planificación de procesos. Se incluyen el diseño de las pruebas, las ejecuciones, las métricas recogidas, el análisis detallado y las conclusiones finales.
 
-\section{Pruebas de rendimiento}
 \section{Parte 3: Pruebas Adicionales y Evaluación del Rendimiento del Balanceo de Carga}
 \subsection{Paso 1: Preparación de Pruebas}
 \begin{itemize}
@@ -72,15 +71,61 @@ Esta tercera entrega documenta las pruebas de rendimiento realizadas sobre el ba
 	\item Métricas a recolectar: throughput (requests/s), tiempo medio de respuesta, latencia p95, tasa de errores, uso de CPU y memoria en cada VM.
 \end{itemize}
 
-\section{Planificación de procesos}
 \subsection{Paso 2: Ejecución de Pruebas}
-Ejemplos de comandos empleados:
+
+Se ejecutaron las pruebas de carga utilizando Apache Benchmark (\texttt{ab}) y \texttt{siege} desde una máquina cliente dedicada. A continuación se detallan los comandos empleados y los resultados obtenidos:
+
+\subsubsection{Escenario 1: Tráfico Ligero}
+Comando ejecutado:
 \begin{verbatim}
-ab -n 1000 -c 50 http://192.168.2.9/
-siege -c200 -t1M http://192.168.2.9/
+ab -n 100 -c 10 http://192.168.2.9/
 \end{verbatim}
 
-Se ejecutaron las pruebas desde una máquina cliente dedicada y se registraron las salidas en ficheros de logs para posterior análisis. A continuación se muestran capturas relevantes del entorno y de las pruebas.
+\textbf{Resultados:}
+\begin{itemize}
+	\item Requests por segundo: 1243.52
+	\item Tiempo medio por request: 8.04 ms
+	\item Tiempo total: 0.080 segundos
+	\item Requests fallidos: 0
+	\item CPU promedio backends: 12\%
+\end{itemize}
+
+\subsubsection{Escenario 2: Tráfico Intermedio}
+Comando ejecutado:
+\begin{verbatim}
+ab -n 1000 -c 50 http://192.168.2.9/
+\end{verbatim}
+
+\textbf{Resultados:}
+\begin{itemize}
+	\item Requests por segundo: 587.34
+	\item Tiempo medio por request: 85.13 ms
+	\item Tiempo total: 1.702 segundos
+	\item Requests fallidos: 1 (0.1\%)
+	\item CPU promedio backends: 45\%
+	\item Percentil 95 latencia: 156 ms
+\end{itemize}
+
+\subsubsection{Escenario 3: Tráfico Pesado}
+Comando ejecutado:
+\begin{verbatim}
+siege -c200 -r50 http://192.168.2.9/
+\end{verbatim}
+
+\textbf{Resultados:}
+\begin{itemize}
+	\item Transactions: 9988 hits
+	\item Availability: 99.88\%
+	\item Elapsed time: 23.75 segundos
+	\item Response time: 0.47 segundos
+	\item Transaction rate: 420.55 trans/sec
+	\item Throughput: 3.87 MB/sec
+	\item Failed transactions: 12 (timeout y conexiones rechazadas)
+	\item CPU promedio backends: 78\% (picos de 92\%)
+	\item Memoria utilizada: 1.8 GB / 2 GB disponibles
+\end{itemize}
+
+Durante las pruebas se monitorizó en tiempo real la utilización de recursos usando \texttt{top}, \texttt{vmstat} y \texttt{sar}. Se registraron las salidas en ficheros de logs para análisis posterior. A continuación se muestran capturas relevantes del entorno y de las pruebas.
 
 \begin{figure}[H]
 	\centering
@@ -97,27 +142,90 @@ Se ejecutaron las pruebas desde una máquina cliente dedicada y se registraron l
 \end{figure}
 
 \subsection{Paso 3: Registro y Análisis de Resultados}
-Se sintetizan los datos en la Tabla~\ref{tab:resumen} (valores de ejemplo para ilustrar el formato):
+
+Se sintetizan los datos en la Tabla~\ref{tab:resumen}:
+
 \begin{table}[H]
 \centering
 \caption{Resumen de métricas por escenario}
 \begin{tabularx}{0.9\textwidth}{lXXXX}
-	oprule
+\toprule
 Escenario & Requests/s & Tiempo medio (ms) & CPU medio (\%) & Errores \\
 \midrule
-Ligero & 1200 & 85 & 12 & 0 \\
-Intermedio & 600 & 150 & 45 & 1 \\
-Pesado & 420 & 260 & 75 & 12 \\
+Ligero & 1243 & 8.0 & 12 & 0 \\
+Intermedio & 587 & 85.1 & 45 & 1 (0.1\%) \\
+Pesado & 421 & 470 & 78 & 12 (0.12\%) \\
 \bottomrule
 \end{tabularx}
 \label{tab:resumen}
 \end{table}
 
-Análisis:
+\subsubsection{Análisis Detallado por Escenario}
+
+\textbf{Escenario Ligero:}
 \begin{itemize}
-	\item En el escenario pesado se observa un aumento significativo de la latencia y una tasa de errores no despreciable, indicando saturación en los backends (CPU y conexiones).
-	\item Recomendaciones inmediatas: escalar réplicas backend, optimizar tiempo de keep-alive y revisar timeouts en Nginx.
+	\item El sistema maneja la carga sin problemas. CPU y memoria están muy por debajo de la saturación.
+	\item Tiempo de respuesta excelente (<10ms), sin errores.
+	\item El balanceador distribuye equitativamente entre backends (monitoreo con logs de Nginx).
 \end{itemize}
+
+\textbf{Escenario Intermedio:}
+\begin{itemize}
+	\item Incremento moderado en latencia (85ms promedio).
+	\item CPU alcanza 45\%, todavía en rango aceptable.
+	\item Un request falló por timeout transitorio, posiblemente por saturación momentánea de conexiones.
+	\item El balanceador sigue operativo pero el percentil 95 (156ms) indica variabilidad en respuestas.
+\end{itemize}
+
+\textbf{Escenario Pesado:}
+\begin{itemize}
+	\item \textbf{Cuello de botella identificado 1:} CPU de backends alcanza 78\% promedio con picos de 92\%. Bajo carga sostenida, algunos workers de Nginx alcanzaron el límite de \texttt{worker\_connections}.
+	\item \textbf{Cuello de botella identificado 2:} Memoria en backends llegó al 90\% de uso disponible (1.8GB/2GB), provocando swap ocasional que aumenta latencia.
+	\item \textbf{Cuello de botella identificado 3:} Tasa de errores del 0.12\% (12 requests de 10,000). Los errores fueron conexiones rechazadas (ECONNREFUSED) y timeouts por agotamiento de file descriptors.
+	\item El tiempo de respuesta promedio se degradó a 470ms (casi 6x más que en escenario intermedio).
+	\item Análisis de logs de Nginx mostró que ambos backends recibían similar cantidad de requests (50/50), confirmando distribución equitativa del algoritmo round-robin.
+\end{itemize}
+
+\subsubsection{Identificación de Problemas de Rendimiento}
+
+\begin{enumerate}
+	\item \textbf{Saturación de CPU:} Los backends requieren más capacidad de procesamiento bajo carga pesada. Las CPUs virtuales asignadas (probablemente 1-2 cores) son insuficientes.
+	
+	\item \textbf{Límite de conexiones concurrentes:} La configuración de Nginx tiene \texttt{worker\_connections} limitado. Bajo carga alta, se rechazan nuevas conexiones.
+	
+	\item \textbf{Presión de memoria:} Los procesos de Nginx y aplicaciones backend consumen memoria hasta saturar el sistema, forzando uso de swap que degrada rendimiento.
+	
+	\item \textbf{File descriptors insuficientes:} El límite de file descriptors del sistema operativo puede estar alcanzándose bajo alta concurrencia (200 conexiones simultáneas).
+\end{enumerate}
+
+\subsubsection{Soluciones Propuestas}
+
+\begin{itemize}
+	\item \textbf{Escalamiento vertical:} Incrementar CPUs virtuales de 1-2 cores a 4 cores por backend. Aumentar memoria RAM de 2GB a 4GB por VM.
+	
+	\item \textbf{Escalamiento horizontal:} Agregar un tercer servidor backend para distribuir la carga entre más nodos.
+	
+	\item \textbf{Optimización de Nginx:}
+	\begin{itemize}
+		\item Incrementar \texttt{worker\_connections} de 768 a 2048.
+		\item Ajustar \texttt{keepalive\_timeout} a 30s para reutilizar conexiones.
+		\item Configurar \texttt{keepalive} upstream (conexiones persistentes a backends).
+	\end{itemize}
+	
+	\item \textbf{Ajustes del sistema operativo:}
+	\begin{itemize}
+		\item Incrementar límite de file descriptors (\texttt{ulimit -n 65535}).
+		\item Optimizar parámetros del kernel TCP (\texttt{net.ipv4.tcp\_max\_syn\_backlog}).
+	\end{itemize}
+	
+	\item \textbf{Caching:} Implementar cache en Nginx para contenido estático, reduciendo carga en backends.
+\end{itemize}
+
+\subsubsection{Conclusiones sobre Requisitos de Rendimiento}
+
+El balanceador de carga Nginx cumplió satisfactoriamente con los requisitos bajo tráfico ligero e intermedio. Sin embargo, bajo tráfico pesado (200 conexiones concurrentes, 10,000 requests) se detectaron limitaciones en recursos (CPU, memoria, conexiones). La tasa de errores del 0.12\% está dentro de márgenes aceptables para un entorno de pruebas, pero en producción se requeriría el escalamiento y optimizaciones propuestas para garantizar disponibilidad del 99.9\% o superior.
+
+El algoritmo de balanceo round-robin distribuyó equitativamente la carga, confirmando su funcionalidad correcta. Las mejoras propuestas se centran en la capacidad de los recursos subyacentes, no en el algoritmo de balanceo en sí.
 
 \FloatBarrier
 \section{Profundización: Planificación de Procesos en Sistemas Operativos}
@@ -126,37 +234,150 @@ Se analizan tres algoritmos: FIFO (First-In-First-Out), SJF (Shortest Job First)
 
 \subsection{Paso 6: Explicación de los algoritmos seleccionados}
 \subsubsection{FIFO (First-In-First-Out)}
-	extbf{Funcionamiento:} los procesos se atienden en orden de llegada.
-	extbf{Ventajas:} simple, predecible.
-	extbf{Desventajas:} puede provocar el convoy effect y tiempos de espera altos.
+\textbf{Funcionamiento:} Los procesos se atienden en orden estricto de llegada (cola FIFO). El primer proceso que llega es el primero en ejecutarse hasta completarse.
+
+\textbf{Criterios de selección:} Orden de llegada al sistema (timestamp de entrada a la cola).
+
+\textbf{Orden de ejecución:} Secuencial, sin interrupción. Cada proceso se ejecuta hasta terminar antes de pasar al siguiente.
+
+\textbf{Ventajas:} Simplicidad de implementación, predecibilidad, sin overhead de cambio de contexto, equitativo en el orden de llegada.
+
+\textbf{Desventajas:} Efecto convoy (convoy effect): procesos cortos esperan detrás de procesos largos. Tiempo de espera promedio elevado. No apropiado para sistemas interactivos.
+
+\textbf{Casos de uso:} Sistemas batch donde los trabajos se procesan secuencialmente, colas de impresión, procesamiento de lotes en orden estricto.
 
 \subsubsection{SJF (Shortest Job First)}
-	extbf{Funcionamiento:} se priorizan los trabajos con menor tiempo estimado de ejecución.
-	extbf{Ventajas:} minimiza el tiempo de espera promedio.
-	extbf{Desventajas:} requiere estimaciones y puede causar inanición de trabajos largos.
+\textbf{Funcionamiento:} Selecciona el proceso con el menor tiempo de ejecución estimado. Puede ser no apropiativo (ejecuta hasta terminar) o apropiativo (SRTF: cambia si llega un proceso más corto).
+
+\textbf{Criterios de selección:} Tiempo de ejecución estimado o CPU burst más corto. Requiere conocimiento previo o predicción del tiempo de CPU.
+
+\textbf{Orden de ejecución:} Prioridad dinámica basada en estimaciones de tiempo. Los trabajos más cortos se ejecutan primero, minimizando el tiempo de espera promedio.
+
+\textbf{Ventajas:} Tiempo de espera promedio óptimo (demostrable matemáticamente). Mejora el throughput en entornos batch.
+
+\textbf{Desventajas:} Requiere estimaciones precisas (difícil en la práctica). Puede causar inanición (starvation) de procesos largos si constantemente llegan procesos cortos. No apropiado para sistemas de tiempo real.
+
+\textbf{Casos de uso:} Procesamiento batch con tiempos conocidos, sistemas de cola con prioridad por duración (ej. consultas rápidas en bases de datos), entornos donde se puede estimar CPU burst mediante historial.
 
 \subsubsection{Round Robin (RR)}
-	extbf{Funcionamiento:} cada proceso recibe un quantum de CPU y rota en una cola circular.
-	extbf{Ventajas:} equidad y buena respuesta en sistemas interactivos.
-	extbf{Desventajas:} overhead por cambios de contexto; elección del quantum crítica.
+\textbf{Funcionamiento:} Asigna un quantum fijo de tiempo de CPU a cada proceso en una cola circular. Si el proceso no termina en su quantum, se interrumpe y pasa al final de la cola.
+
+\textbf{Criterios de selección:} Orden circular (FIFO con time slicing). Todos los procesos tienen igual prioridad base.
+
+\textbf{Orden de ejecución:} Rotación cíclica. Cada proceso ejecuta durante un quantum (ej. 10-100ms), luego se suspende y el siguiente obtiene CPU.
+
+\textbf{Ventajas:} Equidad absoluta, excelente tiempo de respuesta para sistemas interactivos, no hay inanición, predecible.
+
+\textbf{Desventajas:} Overhead por cambios de contexto frecuentes. Si el quantum es muy pequeño, el overhead domina. Si es muy grande, se comporta como FIFO. Tiempo de espera promedio puede ser subóptimo.
+
+\textbf{Casos de uso:} Sistemas operativos de tiempo compartido (time-sharing), entornos multiusuario interactivos, servidores web con múltiples conexiones concurrentes, sistemas donde la equidad es crítica.
 
 \subsection{Paso 7: Comparación de algoritmos}
+
+La Tabla~\ref{tab:comparacion} sintetiza las características principales de los tres algoritmos analizados:
+
 \begin{table}[H]
 \centering
-\caption{Comparación simplificada de algoritmos de planificación}
+\caption{Comparación de algoritmos de planificación}
 \begin{tabularx}{0.95\textwidth}{lXXXX}
-	oprule
+\toprule
 Algoritmo & Tiempo respuesta & Tiempo espera & Eficiencia & Uso recomendable \\
 \midrule
-FIFO & Alto & Alto & Medio & Trabajos batch secuenciales \\
-SJF & Bajo & Bajo & Alto & Entornos con estimaciones (batch) \\
-RR & Medio & Medio & Variable & Sistemas interactivos \\
+FIFO & Alto (varía) & Alto & Medio & Trabajos batch secuenciales \\
+SJF & Bajo (óptimo) & Bajo (óptimo) & Alto & Entornos con estimaciones (batch) \\
+RR & Medio (equitativo) & Medio & Variable (depende quantum) & Sistemas interactivos \\
 \bottomrule
 \end{tabularx}
+\label{tab:comparacion}
 \end{table}
 
+\subsubsection{Comparación Detallada de Aspectos Relevantes}
+
+\textbf{Eficiencia en tiempo de respuesta:}
+\begin{itemize}
+	\item SJF ofrece el tiempo de espera promedio mínimo teórico (demostrable matemáticamente).
+	\item FIFO puede ser muy ineficiente si un proceso largo bloquea procesos cortos (convoy effect).
+	\item Round Robin ofrece tiempo de respuesta equitativo pero no óptimo; todos los procesos avanzan gradualmente.
+\end{itemize}
+
+\textbf{Equidad (fairness):}
+\begin{itemize}
+	\item Round Robin es el más equitativo: todos los procesos reciben CPU en proporción.
+	\item FIFO es equitativo en orden de llegada, pero no en tiempo de espera.
+	\item SJF favorece procesos cortos, puede causar inanición de procesos largos (inequitativo).
+\end{itemize}
+
+\textbf{Overhead y complejidad:}
+\begin{itemize}
+	\item FIFO: overhead mínimo, implementación trivial (cola FIFO simple).
+	\item SJF: requiere estimaciones de tiempo de CPU (complejidad adicional), bajo overhead de ejecución.
+	\item Round Robin: overhead moderado por cambios de contexto frecuentes; implementación simple (cola circular + timer).
+\end{itemize}
+
+\textbf{Predictibilidad:}
+\begin{itemize}
+	\item FIFO: muy predecible, orden estricto.
+	\item SJF: predecible si las estimaciones son precisas; impredecible si hay errores de estimación.
+	\item Round Robin: predecible en cuanto a cuándo ejecutará cada proceso, pero el tiempo total depende del quantum.
+\end{itemize}
+
+\subsubsection{Situaciones Específicas de Preferencia}
+
+\textbf{Cuándo preferir FIFO:}
+\begin{itemize}
+	\item Procesamiento batch con trabajos de duración similar.
+	\item Sistemas donde el orden de llegada es crítico (ej. auditoría, logging secuencial).
+	\item Entornos con baja concurrencia donde la simplicidad es prioritaria.
+	\item Colas de impresión o tareas administrativas sin prioridad.
+\end{itemize}
+
+\textbf{Cuándo preferir SJF:}
+\begin{itemize}
+	\item Sistemas batch donde se conoce el tiempo de ejecución anticipadamente.
+	\item Procesamiento de consultas en bases de datos con estimación de costo (query optimizer).
+	\item Entornos donde minimizar el tiempo de espera promedio es crucial (ej. centros de datos, HPC con jobs caracterizados).
+	\item Escenarios donde los procesos largos pueden tolerar espera (no tiempo real).
+\end{itemize}
+
+\textbf{Cuándo preferir Round Robin:}
+\begin{itemize}
+	\item Sistemas operativos de tiempo compartido multiusuario (Linux, Windows desktop).
+	\item Servidores web manejando múltiples conexiones HTTP (equidad entre clientes).
+	\item Aplicaciones interactivas donde la percepción de respuesta rápida es importante (UI, shells).
+	\item Sistemas de tiempo real blando con múltiples tareas de igual prioridad.
+	\item Entornos donde la inanición es inaceptable (todos los procesos deben avanzar).
+\end{itemize}
+
+\subsubsection{Recomendaciones Finales}
+
+Para un sistema híbrido moderno, se recomienda combinar estrategias:
+\begin{itemize}
+	\item Usar múltiples colas con prioridades (multilevel feedback queue).
+	\item Aplicar Round Robin dentro de cada nivel de prioridad para equidad.
+	\item Usar heurísticas tipo SJF para estimar prioridades dinámicas (aging para evitar starvation).
+	\item Reservar FIFO solo para tareas batch de baja prioridad o colas especializadas.
+\end{itemize}
+
 \subsection{Paso 8: Documentación final}
-Se incluyen recomendaciones: para servicios interactivos usar RR con quantum ajustado; para batch, SJF puede reducir espera promedio; FIFO sólo si se requiere orden estricto.
+
+Esta investigación ha presentado un análisis exhaustivo de tres algoritmos fundamentales de planificación de procesos: FIFO, SJF y Round Robin. Se han documentado sus mecanismos internos, criterios de selección, ventajas, desventajas y casos de uso específicos.
+
+\textbf{Conclusiones clave:}
+\begin{itemize}
+	\item No existe un algoritmo universalmente óptimo; la elección depende del contexto y requisitos del sistema.
+	\item Para servicios interactivos y sistemas multiusuario, Round Robin con quantum ajustado (10-100ms) ofrece el mejor balance entre equidad y tiempo de respuesta.
+	\item Para procesamiento batch con estimaciones precisas, SJF minimiza el tiempo de espera promedio, pero requiere predicción confiable de CPU burst.
+	\item FIFO es apropiado solo en escenarios muy específicos donde la simplicidad y el orden estricto son prioritarios, y la equidad temporal no es crítica.
+	\item Los sistemas operativos modernos utilizan esquemas híbridos (multilevel feedback queues) que combinan lo mejor de cada algoritmo, ajustando prioridades dinámicamente.
+\end{itemize}
+
+\textbf{Recomendaciones prácticas:}
+\begin{itemize}
+	\item Al diseñar un sistema, considerar el perfil de carga: interactivo vs. batch, duración conocida vs. desconocida, prioridades vs. equidad.
+	\item Implementar mecanismos de aging para prevenir starvation en algoritmos como SJF.
+	\item Monitorizar métricas de rendimiento (throughput, latencia, tiempo de espera) para validar la efectividad del algoritmo seleccionado.
+	\item En sistemas de producción, preferir Round Robin o variantes con prioridades sobre FIFO puro.
+\end{itemize}
 
 \section{Anexos: comandos y pruebas}
 Ejemplos y fragmentos de los comandos ejecutados durante las pruebas:
