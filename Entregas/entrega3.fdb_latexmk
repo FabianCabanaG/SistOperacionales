@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex entrega3"] 1764547481.75318 "entrega3.aux" "entrega3.bbl" "entrega3" 1764547482.76571 0
+["bibtex entrega3"] 1764693975.91807 "entrega3.aux" "entrega3.bbl" "entrega3" 1764693979.87993 0
   "./referencias.bib" 1763227911.61604 1890 471ddc778c32c40a18c93d020a18e110 ""
-  "./referencias3.bib" 1764547479.74215 549 95ececb6a4759ed58c55c8e898e80c86 ""
+  "./referencias3.bib" 1764548790.13469 549 95ececb6a4759ed58c55c8e898e80c86 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/bibtex/bst/apacite/apacite.bst" 1374952728 146156 ecb25f7102744fefab6424686f49047c ""
-  "entrega3.aux" 1764547317.7295 5673 fb328056c775ead1eac66ae83d463f9d "pdflatex"
+  "entrega3.aux" 1764693977.88615 7277 58f0177f0d598c1f7155a8bf31d35acd "pdflatex"
   (generated)
   "entrega3.bbl"
   "entrega3.blg"
   (rewritten before read)
-["pdflatex"] 1764547304.73415 "c:/Users/Wilme/SistOperacionales/Entregas/entrega3.tex" "entrega3.pdf" "entrega3" 1764547482.77031 0
+["pdflatex"] 1764693976.47381 "c:/Users/Wilme/SistOperacionales/Entregas/entrega3.tex" "entrega3.pdf" "entrega3" 1764693979.88117 0
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1764545936.32046 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1761323448.69424 31952 2c7fd51e71292b6596313308d052a918 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk" 1761323444.09182 40136 61dad4312e6762dbc84a0057f61cb453 ""
@@ -17,7 +17,9 @@
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1095.pk" 1761341516.53316 26228 5f4febdb1e1796bdf5fd8f01341ec719 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1200.pk" 1761323446.61873 28440 824c19529c10197c93bade07bc75a99b ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm2074.pk" 1761323450.7577 53736 9146088f7f67d5ba063f71678c5df56a ""
+  "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecti1200.pk" 1761323438.86891 39120 c6db09f170a29e61d71bc8fca962576a ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1200.pk" 1761323441.47162 24152 73efd1facf119768b6acee7cc8ab443b ""
+  "C:/Users/Wilme/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1761328669.9214 14064 021429f93caa88063776bf7ac446ab89 ""
   "C:/Users/Wilme/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1761322128.42669 13321623 dc6a69aaef18194bc0d921b619c996fd ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecbx1200.tfm" 993061958 3200 b8d69bc738e5ef3e08cefeef3109ff56 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecbx1440.tfm" 993061960 3196 0b37fa3083e15c57cfa8c4ff52f2807a ""
@@ -29,7 +31,9 @@
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm1728.tfm" 993062128 3168 11457c8185ce67fb79662ba8b03d6db1 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm2074.tfm" 993062130 3184 b2541675eba9fa86d240ec0ecc913558 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm2488.tfm" 993062132 3184 93c67f4c0884ba9e31b75d469978f63b ""
+  "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecti1200.tfm" 993062324 2832 28bbd97ca29f46e76c87a158a9915203 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ectt1200.tfm" 993062344 1348 c48a0620e07683860afba1730adf9e53 ""
+  "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/tcrm1200.tfm" 993062508 1444 95ffe0f19b974d50849790c8225c7ef7 ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmmi12.tfm" 1136765053 1524 4414a8315f39513458b80dfc63bff03a ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmmi6.tfm" 1136765053 1512 f21f83efb36853c0b70002322c1ab3ad ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmmi8.tfm" 1136765053 1520 eccf95517727cb11801f4f1aee3a21b4 ""
@@ -97,13 +101,13 @@
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/tools/array.sty" 1749468414 15698 f5f20b24886bb50156054c53e19b13fd ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1749468414 7243 a2c17f18e2c9b702b84fad03d5f9c78b ""
   "C:/Users/Wilme/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/Wilme/SistOperacionales/Entregas/entrega3.tex" 1764547301.99217 12898 da57bc703d6681fdfef77451e07067a7 ""
-  "capturas/diagrama-balanceo.png" 1763223033.75174 10786 e76007b9345369933160fb3501a0cbc0 ""
+  "c:/Users/Wilme/SistOperacionales/Entregas/entrega3.tex" 1764692661.73564 19793 969c913f3e6c23d0baf13e3fea2b6492 ""
+  "capturas/diagrama-balanceo.png" 1764693971.05353 74972 5dca38114e50077bfdac2d83fa65f081 ""
   "capturas/nginx-install.png" 1763669896.70756 31888 6424d0b14afd774b910c53710505673f ""
-  "entrega3.aux" 1764547317.7295 5673 fb328056c775ead1eac66ae83d463f9d "pdflatex"
-  "entrega3.bbl" 1764547482.43087 6022 fda8d790821fe4139c2b45a4c15c3b1a "bibtex entrega3"
-  "entrega3.out" 1764547317.73681 3653 58702fc65a08e97b30a4e10704a0b8ef "pdflatex"
-  "entrega3.toc" 1764547317.7443 1566 11d422d325ff337a66f8da605062478a "pdflatex"
+  "entrega3.aux" 1764693977.88615 7277 58f0177f0d598c1f7155a8bf31d35acd "pdflatex"
+  "entrega3.bbl" 1764693976.31916 6022 fda8d790821fe4139c2b45a4c15c3b1a "bibtex entrega3"
+  "entrega3.out" 1764693977.89223 6086 15d348d012875aa3b70d921704b42e8b "pdflatex"
+  "entrega3.toc" 1764693977.89583 2670 91a9f29fa716933339517929bf168cd7 "pdflatex"
   (generated)
   "entrega3.aux"
   "entrega3.log"
